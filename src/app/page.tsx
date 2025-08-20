@@ -1,5 +1,5 @@
-import MenuPageClient from "./MenuPageClient";
+import MenuPageServer from "./MenuPageServer";
 
 export default function Page() {
-  return <MenuPageClient />;
+  return <MenuPageServer />;
 }

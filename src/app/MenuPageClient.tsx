@@ -1,33 +1,28 @@
 "use client";
-import { client } from "./lib/sanity.client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import MenuHeader from "./components/MenuHeader";
 import MenuSection from "./components/MenuSection";
 
-const MENU_QUERY = `*[_type == "product"]{
-  _id,
-  name,
-  price,
-  note,
-  category->{
-    name
-  },
-  extras[]-> {
-    _id,
-    name,
-    price
+interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  note?: string;
+  extras?: { _id: string; name: string; price: number }[];
+  category?: {
+    name: string;
   }
-}`;
+}
 
-export default function MenuPageClient() {
-  const [products, setProducts] = useState<any[]>([]);
+interface MenuPageClientProps {
+  initialProducts: Product[];
+}
+
+export default function MenuPageClient({ initialProducts }: MenuPageClientProps) {
+  const [products] = useState<Product[]>(initialProducts);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    client.fetch(MENU_QUERY).then(setProducts);
-  }, []);
-
-  const categoriesMap: { [key: string]: any[] } = {};
+  const categoriesMap: { [key: string]: Product[] } = {};
   products.forEach((prod) => {
     const catName = prod.category?.name || "Sin categoría";
     if (!categoriesMap[catName]) categoriesMap[catName] = [];

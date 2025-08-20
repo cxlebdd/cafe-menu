@@ -4,15 +4,22 @@ import MenuHeader from "./components/MenuHeader";
 import MenuSection from "./components/MenuSection";
 import { GiCherry } from "react-icons/gi";
 
+interface Extra {
+  _id: string;
+  name: string;
+  price: number;
+}
+
 interface Product {
   _id: string;
   name: string;
   price: number;
   note?: string;
-  extras?: { _id: string; name: string; price: number }[];
+  extras?: Extra[];
   category?: {
     name: string;
-  }
+    description?: string; // descripción de la categoría
+  };
 }
 
 interface MenuPageClientProps {
@@ -23,6 +30,7 @@ export default function MenuPageClient({ initialProducts }: MenuPageClientProps)
   const [products] = useState<Product[]>(initialProducts);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Agrupar productos por categoría
   const categoriesMap: { [key: string]: Product[] } = {};
   products.forEach((prod) => {
     const catName = prod.category?.name || "Sin categoría";
@@ -30,14 +38,30 @@ export default function MenuPageClient({ initialProducts }: MenuPageClientProps)
     categoriesMap[catName].push(prod);
   });
 
-  const navItems = Object.keys(categoriesMap);
+  // Ordenar productos dentro de cada categoría por precio descendente
+  Object.keys(categoriesMap).forEach((catName) => {
+    categoriesMap[catName].sort((a, b) => b.price - a.price);
+  });
+
+  // Ordenar categorías por número de productos descendente
+  const sortedCategories = Object.entries(categoriesMap).sort(
+    (a, b) => b[1].length - a[1].length
+  );
+
+  const navItems = sortedCategories.map(([catName]) => catName);
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       <MenuHeader menuOpen={menuOpen} setMenuOpen={setMenuOpen} navItems={navItems} />
       <main className="pt-28 p-6 max-w-6xl mx-auto">
-        {Object.entries(categoriesMap).map(([catName, catProducts]) => (
-          <MenuSection key={catName} catName={catName} products={catProducts} />
+        {sortedCategories.map(([catName, catProducts]) => (
+          <MenuSection
+  key={catName}
+  catName={catName}
+  catDescription={catProducts[0].category?.description}
+  products={catProducts}
+/>
+
         ))}
       </main>
       <footer className="bg-black bg-opacity-90 text-gray-400 py-8 mt-16 select-none">

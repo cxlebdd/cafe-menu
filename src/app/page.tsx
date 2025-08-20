@@ -1,7 +1,6 @@
 // src/app/page.tsx
 import { client } from "./lib/sanity.client";
 import { MENU_QUERY } from "./lib/queries";
-import { motion } from "framer-motion";
 
 async function getProducts() {
   return client.fetch(MENU_QUERY);
@@ -43,6 +42,7 @@ export default async function MenuPage() {
 
                   {prod.extras?.length > 0 && (
                     <ul className="ml-4 list-disc text-green-500 text-sm">
+                      {/* @ts-ignore */}
                       {prod.extras.map((ex: any) => (
                         <li key={ex._id}>
                           +${ex.price} {ex.name}

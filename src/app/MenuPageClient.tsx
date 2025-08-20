@@ -70,10 +70,6 @@ export default function MenuPageClient({ initialProducts }: MenuPageClientProps)
             <GiCherry className="text-red-500 w-8 h-8" />
             <span className="text-[#d8a47f]">Café Cereza</span>
           </div>
-          <p className="text-sm text-center md:text-left">
-            © {new Date().getFullYear()} Café Cereza. Todos los derechos
-            reservados.
-          </p>
           <nav aria-label="Redes sociales" className="flex gap-4">
             <a
               href="https://www.facebook.com/profile.php?id=61578608314658"

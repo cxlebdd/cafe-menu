@@ -30,10 +30,6 @@ export default function MenuSection({ catName, catDescription, catImage, product
     viewport: { once: true, amount: 0.2 },
   };
 
-  // Parallax simple para la imagen de categoría
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, -50]); // mueve la imagen hacia arriba al hacer scroll
-
   return (
     <section className="mb-12 relative">
       {catImage && (

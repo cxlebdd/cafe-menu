@@ -12,11 +12,8 @@ interface MenuHeaderProps {
 export default function MenuHeader({ menuOpen, setMenuOpen, navItems }: MenuHeaderProps) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-95 shadow-md">
-      <div className="max-w-7xl mx-auto flex justify-between items-center py-5 px-6 md:px-12">
-        
-        {/* Logo con animación y link */}
+      <div className="max-w-7xl mx-auto flex justify-between items-center py-5 px-6 md:px-12">        
         <motion.a
-          href="https://cafe-cereza.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
           initial={{ opacity: 0, y: -20 }}
@@ -29,14 +26,21 @@ export default function MenuHeader({ menuOpen, setMenuOpen, navItems }: MenuHead
         </motion.a>
 
         {/* Botón menú móvil */}
-        <button
-          className="md:hidden text-gray-300 hover:text-red-500 transition-colors duration-300"
-          aria-label="Toggle menu"
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(!menuOpen)}
+        <motion.a
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.42, 0, 0.58, 1] } }}
         >
-          {menuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
-        </button>
+          <button
+            className="md:hidden text-gray-300 hover:text-red-500 transition-colors duration-300"
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
+          </button>
+        </motion.a>
 
         {/* Navbar desktop con animación para cada link */}
         <nav className="hidden md:flex space-x-6 uppercase text-sm md:text-base font-semibold tracking-widest text-gray-300">

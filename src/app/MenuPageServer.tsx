@@ -1,4 +1,3 @@
-// MenuPageServer.tsx
 import MenuPageClient from "./MenuPageClient";
 import { client } from "./lib/sanity.client";
 

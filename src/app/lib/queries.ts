@@ -4,7 +4,7 @@ export const MENU_QUERY = `*[_type == "product"]{
   price,
   note,
   category->{
-    name
+    name,
   },
   extras[]->{
     _id,

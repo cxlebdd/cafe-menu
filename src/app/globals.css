@@ -24,3 +24,7 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+h2, h1 {
+  scroll-margin-top: 6rem; /* ajusta según la altura del header fijo */
+}
